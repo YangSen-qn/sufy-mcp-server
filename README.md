@@ -1,0 +1,1 @@
+# sufy-mcp-server
