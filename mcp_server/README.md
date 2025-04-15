@@ -77,7 +77,7 @@
    - 获取 Sufy MCP Server 的版本信息
    - Inputs: 无
    - Returns:
-     - 服务器版本信息
+     - Server 版本信息
 
 
 

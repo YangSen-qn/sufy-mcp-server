@@ -1,11 +1,11 @@
 # Sufy MCP Server
 
+[中文文档](README_zh.md) | [英文文档](README.md)
+
 ## 概述
 
 基于 Sufy 产品构建的 Model Context Protocol (MCP) Server，支持用户在 AI 大模型客户端的上下文中通过该 MCP
 Server 来访问 Sufy 服务。
-
-[中文文档](README_zh.md) | [英文文档](README.md)
 
 ## 安装
 

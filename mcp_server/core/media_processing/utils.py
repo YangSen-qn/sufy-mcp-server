@@ -40,7 +40,7 @@ def _query_add_processing_func(query: str, func: str, func_prefix: str) -> str:
         queries.insert(0, func)
         return "&".join(queries)
 
-    # first_query 有 = 说明不是 funcs
+    # first_query 不是 funcs
     if not _is_func(first_query):
         queries.insert(0, func)
         return "&".join(queries)

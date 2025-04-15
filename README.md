@@ -1,10 +1,10 @@
 # Sufy MCP Server
 
+[Chinese Documentation](README_zh.md) | [English Documentation](README.md)
+
 ## Overview
 
 The Model Context Protocol (MCP) Server, built based on Sufy products, enables users to access Sufy services through this MCP Server within the context of AI large model clients.
-
-[Chinese Documentation](README_zh.md) | [English Documentation](README.md)
 
 ## Installation
 
