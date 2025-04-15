@@ -1,7 +1,7 @@
 [project]
 name = "sufy-mcp"
 version = "1.0.0"
-description = "A MCP server project"
+description = "A MCP server project of Sufy"
 requires-python = ">=3.12"
 dependencies = [
     "aioboto3>=13.2.0",

@@ -2,9 +2,6 @@
 
 基于 Sufy 产品构建的 Model Context Protocol (MCP) 服务器，支持在 AI 大模型的上下文中直接访问和操作 Sufy 的服务。
 
-## Keywords
-Sufy, MCP Server
-
 ## Tools
 
 ### 存储工具
@@ -65,11 +62,11 @@ Sufy, MCP Server
      - `object_url`: 处理后图片的访问链接
 
 3. `ImageBlur`
-   - 为图片添加圆角效果
+   - 为图片添加高斯模糊效果
    - Inputs:
      - `object_url` (string): 待处理图片的访问链接，图片必须存储在 Sufy 空间中
-     - `radius_x` (string, optional): 水平方向圆角半径，可使用像素值或百分比
-     - `radius_y` (string, optional): 垂直方向圆角半径，可使用像素值或百分比
+     - `radius` (string, optional): 模糊半径，取值范围为1-200
+     - `sigma` (string, optional): 正态分布的标准差，值必须大于0
    - 注意：如果只指定一个参数，另一个参数将自动使用相同的值
    - Returns:
      - `object_url`: 处理后图片的访问链接

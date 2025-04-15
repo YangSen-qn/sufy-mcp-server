@@ -11,8 +11,8 @@ logger = logging.getLogger(consts.LOGGER_NAME)
 logger.info("Starting MCP server")
 
 SAMPLE_RESOURCES = {
-    "greeting": "Hello! This is a resource for Sufy.",
-    "help": "This server provides a few resources for Sufy.",
+    "greeting": "Hello! This is a MCP Server for Sufy.",
+    "help": "This server provides a few resources and tools for Sufy.",
     "about": "This is the MCP server implementation.",
 }
 

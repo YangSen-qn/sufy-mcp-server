@@ -1,12 +1,12 @@
 import logging
 from contextlib import aclosing
+from typing import Iterable
 
 import mcp.types as types
-from mcp.types import EmptyResult
+from mcp.types import EmptyResult, AnyUrl, Tool
 
 from mcp import LoggingLevel
-from mcp.server.lowlevel import Server
-from mcp.types import Tool, AnyUrl
+from mcp.server.lowlevel import Server, helper_types as low_types
 
 from . import core
 from .consts import consts
@@ -17,14 +17,14 @@ from .tools import tools
 logger = logging.getLogger(consts.LOGGER_NAME)
 
 core.load()
-server = Server("mcp-simple-resource")
+server = Server("sufy-mcp-server")
 
 
 @server.set_logging_level()
 async def set_logging_level(level: LoggingLevel) -> EmptyResult:
     logger.setLevel(level.lower())
     await server.request_context.session.send_log_message(
-        level="warning", data=f"Log level set to {level}", logger="mcp_s3_server"
+        level="warning", data=f"Log level set to {level}", logger=consts.LOGGER_NAME
     )
     return EmptyResult()
 
@@ -39,7 +39,7 @@ async def list_resources(**kwargs) -> list[types.Resource]:
 
 
 @server.read_resource()
-async def read_resource(uri: AnyUrl) -> str:
+async def read_resource(uri: AnyUrl) -> [str | bytes | Iterable[low_types.ReadResourceContents]]:
     return await resource.read_resource(uri)
 
 

@@ -1,8 +1,10 @@
 import asyncio
 import logging
 import base64
+from typing import Iterable
 
 from mcp import types
+from mcp.server.lowlevel import helper_types as low_types
 from urllib.parse import unquote
 
 from .storage import StorageService
@@ -18,7 +20,7 @@ class _ResourceProvider(resource.ResourceProvider):
         self.storage = storage
 
     async def list_resources(
-        self, prefix: str = "", max_keys: int = 20, **kwargs
+            self, prefix: str = "", max_keys: int = 20, **kwargs
     ) -> list[types.Resource]:
         """
         List S3 buckets and their contents as resources with pagination
@@ -88,7 +90,8 @@ class _ResourceProvider(resource.ResourceProvider):
         logger.info(f"Returning {len(resources)} resources")
         return resources
 
-    async def read_resource(self, uri: types.AnyUrl, **kwargs) -> str:
+    async def read_resource(self, uri: types.AnyUrl, **kwargs) -> [
+        str | bytes | Iterable[low_types.ReadResourceContents]]:
         """
         Read content from an S3 resource and return structured response
 
@@ -114,13 +117,37 @@ class _ResourceProvider(resource.ResourceProvider):
 
         response = await self.storage.get_object(bucket, key)
         file_content = response["Body"]
-
         content_type = response.get("ContentType", "application/octet-stream")
-        # 根据内容类型返回不同的响应
         if content_type.startswith("image/"):
+            base64_data = base64.b64encode(file_content).decode("utf-8")
+            return [
+                low_types.ReadResourceContents(
+                    mime_type=content_type,
+                    content=base64_data,
+                )
+            ]
+
+
+        if not isinstance(file_content, bytes):
+            file_content = str(file_content)
+            return [
+                low_types.ReadResourceContents(
+                    mime_type=content_type,
+                    content=file_content,
+                )
+            ]
+
+        if content_type.startswith("text/"):
+            file_content = file_content.decode("utf-8")
+        else:
             file_content = base64.b64encode(file_content).decode("utf-8")
 
-        return file_content
+        return [
+            low_types.ReadResourceContents(
+                mime_type=content_type,
+                content=file_content,
+            )
+        ]
 
 
 def register_resource_provider(storage: StorageService):

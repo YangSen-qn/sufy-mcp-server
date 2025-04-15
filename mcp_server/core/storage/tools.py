@@ -20,7 +20,7 @@ class _ToolImpl:
     @tools.tool_meta(
         types.Tool(
             name="ListBuckets",
-            description="Returns a list of all buckets owned by the authenticated sender of the request. To grant IAM permission to use this operation, you must add the s3:ListAllMyBuckets policy action.",
+            description="Returns a list of all buckets of config. To grant IAM permission to use this operation, you must add the s3:ListAllMyBuckets policy action.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -72,7 +72,7 @@ class _ToolImpl:
     @tools.tool_meta(
         types.Tool(
             name="GetObject",
-            description="Retrieves an object from Sufy. In the GetObject request, specify the full key name for the object. General purpose buckets - Both the virtual-hosted-style requests and the path-style requests are supported. For a virtual hosted-style request example, if you have the object photos/2006/February/sample.jpg, specify the object key name as /photos/2006/February/sample.jpg. For a path-style request example, if you have the object photos/2006/February/sample.jpg in the bucket named examplebucket, specify the object key name as /examplebucket/photos/2006/February/sample.jpg. Directory buckets - Only virtual-hosted-style requests are supported. For a virtual hosted-style request example, if you have the object photos/2006/February/sample.jpg in the bucket named examplebucket--use1-az5--x-s3, specify the object key name as /photos/2006/February/sample.jpg. Also, when you make requests to this API operation, your requests are sent to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format https://bucket_name.s3express-az_id.region.amazonaws.com/key-name . Path-style requests are not supported.",
+            description="Retrieves an object from bucket. In the GetObject request, specify the full key name for the object. Path-style requests are not supported.",
             inputSchema={
                 "type": "object",
                 "properties": {
