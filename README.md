@@ -1,121 +1,120 @@
 # Sufy MCP Server
 
-## 概述
+## Overview
 
-基于 Sufy 产品构建的 Model Context Protocol (MCP) Server，支持用户在 AI 大模型客户端的上下文中通过该 MCP
-Server 来访问 Sufy 服务。
+The Model Context Protocol (MCP) Server, built based on Sufy products, enables users to access Sufy services through this MCP Server within the context of AI large model clients.
 
-## 安装
+[Chinese Documentation](README_zh.md) | [English Documentation](README.md)
 
-**前置要求**
+## Installation
 
-- Python 3.12 或更高版本
-- uv 包管理器
+**Prerequisites**
 
-如果还没有安装 uv，可以使用以下命令安装：
+• Python 3.12 or higher
+• UV package manager
+
+If UV is not installed, you can install it using the following command:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-1. 克隆仓库：
+1. Clone the repository:
 
 ```bash
-# 克隆项目并进入目录
+# Clone the project and enter the directory
 git clone git@github.com:sufy/sufy-mcp-server.git
 cd sufy-mcp-server
 ```
 
-2. 创建并激活虚拟环境：
+2. Create and activate a virtual environment:
 
 ```bash
 uv venv
 source .venv/bin/activate  # Linux/macOS
-# 或
+# or
 .venv\Scripts\activate  # Windows
 ```
 
-3. 安装依赖：
+3. Install dependencies:
 
 ```bash
 uv pip install -e .
 ```
 
-## 配置
+## Configuration
 
-1. 复制环境变量模板：
+1. Copy the environment variable template:
 
 ```bash
 cp .env.example .env
 ```
 
-2. 编辑 `.env` 文件，配置以下参数：
+2. Edit the `.env` file and configure the following parameters:
 
 ```bash
-# S3/Sufy 认证信息
+# S3/Sufy authentication information
 SUFY_ACCESS_KEY=your_access_key
 SUFY_SECRET_KEY=your_secret_key
 
-# 区域信息
+# Region information
 SUFY_REGION_NAME=your_region
 SUFY_ENDPOINT_URL=endpoint_url # eg:https://s3.your_region.sufycs.com
 
-# 配置 bucket，多个 bucket 使用逗号隔开，建议最多配置 20 个 bucket
+# Configure buckets, separate multiple buckets with commas (recommended maximum: 20 buckets)
 SUFY_BUCKETS=bucket1,bucket2,bucket3
 ```
 
-## 使用方法
+## Usage
 
-### 启动服务器
+### Starting the Server
 
-1. 使用标准输入输出（stdio）模式启动（默认）：
+1. Start in standard input/output (stdio) mode (default):
 
 ```bash
 uv --directory . run sufy-mcp-server
 ```
 
-2. 使用 SSE 模式启动（用于 Web 应用）：
+2. Start in SSE mode (for web applications):
 
 ```bash
 uv --directory . run sufy-mcp-server --transport sse --port 8000
 ```
 
-## 开发
+## Development
 
-扩展功能，首先在 core 目录下新增一个业务包目录（eg: 存储 -> storage），在此业务包目录下完成功能拓展。
-在业务包目录下的 `__init__.py` 文件中定义 load 函数用于注册业务工具或者资源，最后在 `core` 目录下的 `__init__.py`
-中调用此 load 函数完成工具或资源的注册。
+To extend functionality, first create a new business package directory under the `core` directory (e.g., storage for storage-related features). Implement the feature extensions within this directory. Define a `load` function in the `__init__.py` file of the business package directory to register tools or resources. Finally, call this `load` function in the `__init__.py` file under the `core` directory to complete the registration of tools or resources.
 
 ```shell
 core
-├── __init__.py # 各个业务工具或者资源加载
-└── storage # 存储业务目录
-    ├── __init__.py # 加载存储工具或者资源
-    ├── resource.py # 存储资源扩展
-    ├── storage.py # 存储工具类
-    └── tools.py # 存储工具扩展
+├── __init__.py # Loads all business tools or resources
+└── storage # Storage business directory
+    ├── __init__.py # Loads storage tools or resources
+    ├── resource.py # Storage resource extensions
+    ├── storage.py # Storage utility class
+    └── tools.py # Storage tool extensions
 ```
 
-## 测试
+## Testing
 
-### 使用 Model Control Protocol Inspector 测试
+### Testing with Model Control Protocol Inspector
 
-强烈推荐使用 [Model Control Protocol Inspector](https://github.com/modelcontextprotocol/inspector) 进行测试。
+It is highly recommended to use the [Model Control Protocol Inspector](https://github.com/modelcontextprotocol/inspector) for testing.
 
 ```shell
-# node 版本为：v22.4.0
+# Node version: v22.4.0
 npx @modelcontextprotocol/inspector uv --directory . run sufy-mcp-server
 ```
 
-### 使用 cline 测试：
+### Testing with Cline:
 
-步骤：
+Steps:
 
-1. 在 vscode 下载 Cline 插件（下载后 Cline 插件后在侧边栏会增加 Cline 的图标）
-2. 配置大模型
-3. 配置 Sufy MCP
-    1. 点击 Cline 图标进入 Cline 插件，选择 MCP Server 模块
-    2. 选择 installed，点击 Advanced MCP Settings 配置 MCP Server，参考下面配置信息
+1. Install the Cline plugin in VSCode (the Cline icon will appear in the sidebar after installation).
+2. Configure the large model.
+3. Configure Sufy MCP:
+   1. Click the Cline icon to enter the Cline plugin and select the MCP Server module.
+   2. Choose "Installed," then click "Advanced MCP Settings" to configure the MCP Server. Refer to the following configuration:
    ```
    {
      "mcpServers": {
@@ -123,11 +122,11 @@ npx @modelcontextprotocol/inspector uv --directory . run sufy-mcp-server
          "command": "uv",
          "args": [
            "--directory",
-           "/Users/yangsen/Workspace/App/sufy-mcp-server", # 此处选择项目存储的绝对路径
+           "/Users/yangsen/Workspace/App/sufy-mcp-server", # Enter the absolute path of the project directory here
            "run",
            "sufy-mcp-server"
          ],
-         "env": { # 此处以环境变量方式填写你的 Sufy mcp server 的配置信息，如果是从插件市场下载，可以通过此方式配置，如果是从本地源码安装，也可以通过上述方式在 .env 文件中配置
+         "env": { # Enter your Sufy MCP Server configuration here as environment variables. If downloaded from the plugin marketplace, configure here. If installed locally from source, you can also configure in the .env file as described above.
            "SUFY_ACCESS_KEY": "YOUR_ACCESS_KEY",
            "SUFY_SECRET_KEY": "YOUR_SECRET_KEY",
            "SUFY_REGION_NAME": "YOUR_REGION_NAME",
@@ -139,11 +138,10 @@ npx @modelcontextprotocol/inspector uv --directory . run sufy-mcp-server
      }
    }
    ```
-    3. 点击 Sufy MCP Server 的链接开关进行连接
-4. 在 Cline 中创建一个聊天窗口，此时我们可以和 AI 进行交互来使用 sufy-mcp-server ，下面给出几个示例：
-    - 列举 Sufy 的资源信息
-    - 列举 Sufy 中所有的 Bucket
-    - 列举 Sufy 中 xxx Bucket 的文件
-    - 读取 Sufy xxx Bucket 中 yyy 的文件内容
-    - 对 Sufy xxx Bucket 中 yyy 的图片缩小20%
-
+   3. Click the connection switch for the Sufy MCP Server to connect.
+4. Create a chat window in Cline. You can now interact with the AI to use the sufy-mcp-server. Here are some examples:
+    - List Sufy resource information.
+    - List all buckets in Sufy.
+    - List files in a specific Sufy bucket (e.g., xxx).
+    - Read the content of file yyy in Sufy bucket xxx.
+    - Reduce the size of image yyy in Sufy bucket xxx by 20%.
