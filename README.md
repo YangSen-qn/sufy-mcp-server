@@ -147,5 +147,3 @@ npx @modelcontextprotocol/inspector uv --directory . run sufy-mcp-server
     - 读取 Sufy xxx Bucket 中 yyy 的文件内容
     - 对 Sufy xxx Bucket 中 yyy 的图片缩小20%
 
-
-
