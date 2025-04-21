@@ -10,4 +10,4 @@ wheels/
 .venv
 .env
 
-mcp_server/test.py
+test.py
