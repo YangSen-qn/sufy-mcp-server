@@ -7,7 +7,7 @@ import fastjsonschema
 from typing import List, Dict, Callable, Optional, Union, Awaitable
 from dataclasses import dataclass
 from mcp import types
-from mcp_server import consts
+from .. import consts
 
 logger = logging.getLogger(consts.LOGGER_NAME)
 
@@ -36,8 +36,8 @@ def all_tools() -> List[types.Tool]:
 
 
 def register_tool(
-    meta: types.Tool,
-    func: Union[ToolFunc, AsyncToolFunc],
+        meta: types.Tool,
+        func: Union[ToolFunc, AsyncToolFunc],
 ) -> None:
     """注册工具，禁止重复名称"""
     name = meta.name
@@ -103,6 +103,7 @@ async def call_tool(name: str, arguments: dict) -> ToolResult:
         raise ValueError(f"Tool {name} not found")
 
     # 工具输入参数校验
+    arguments = {k: v for k, v in arguments.items() if v is not None}
     try:
         tool_entry.input_validator(arguments)
     except fastjsonschema.JsonSchemaException as e:
