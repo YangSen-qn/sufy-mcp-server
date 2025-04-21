@@ -1,0 +1,45 @@
+params:
+  type: object
+  properties:
+    SUFY_ACCESS_KEY:
+      type: string
+      description: The access key for your Sufy account.
+    SUFY_SECRET_KEY:
+      type: string
+      description: The secret key for your Sufy account.
+    SUFY_REGION_NAME:
+      type: string
+      description: The region name for your config of Sufy buckets.
+    SUFY_ENDPOINT_URL:
+      type: string
+      description: The endpoint URL for your config of Sufy buckets. eg:https://mos.us-south-1.sufybkt.com.
+    SUFY_BUCKETS:
+      type: string
+      description: The buckets of Qiniu, If there are multiple extra items, separate them with commas. eg:bucket1,bucket2.
+  required:
+    - SUFY_ACCESS_KEY
+    - SUFY_SECRET_KEY
+    - SUFY_REGION_NAME
+    - SUFY_ENDPOINT_URL
+    - SUFY_BUCKETS
+
+uvx:
+  command:
+    | uvx sufy-mcp-server
+  config:
+    | {
+        "mcpServers": {
+          "sufy-mcp-server": {
+            "command": "uvx",
+            "args": [
+              "sufy-mcp-server"
+            ],
+            "env": {
+              "SUFY_ACCESS_KEY": "YOUR SUFY ACCESS KEY",
+              "SUFY_SECRET_KEY": "YOUR SUFY SECRET KEY",
+              "SUFY_REGION_NAME": "YOUR SUFY REGION NAME",
+              "SUFY_ENDPOINT_URL": "YOUR SUFY ENDPOINT URL"
+            }
+          }
+        }
+      }
