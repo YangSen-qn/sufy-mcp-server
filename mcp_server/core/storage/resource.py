@@ -35,6 +35,9 @@ class _ResourceProvider(resource.ResourceProvider):
         try:
             # Get limited number of buckets
             buckets = await self.storage.list_buckets(prefix)
+            if not buckets or len(buckets) == 0:
+                logger.warning("No buckets found")
+                return []
 
             # limit concurrent operations
             async def process_bucket(bucket):

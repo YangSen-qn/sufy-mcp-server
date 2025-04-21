@@ -53,7 +53,7 @@ class StorageService:
 
     async def list_buckets(self, prefix: Optional[str] = None) -> List[dict]:
         max_buckets = 50
-        if not self.config.buckets:
+        if not self.config.buckets or len(self.config.buckets) == 0:
             return []
 
         async with self.s3_session.client(

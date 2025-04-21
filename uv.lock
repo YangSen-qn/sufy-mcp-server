@@ -716,7 +716,7 @@ wheels = [
 ]
 
 [[package]]
-name = "sufy-mcp"
+name = "sufy-mcp-server"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [
