@@ -13,10 +13,28 @@ Server 来访问 Sufy 服务。
 - uv 包管理器
 
 如果还没有安装 uv，可以使用以下命令安装：
-
 ```bash
+# Mac，推荐使用 brew 安装
+brew install uv
+
+
+# Linux & Mac
+# 1. 安装
 curl -LsSf https://astral.sh/uv/install.sh | sh
+# 2. 安装完成后，请确保将软件包安装路径（包含 uv 和 uvx 可执行文件的目录）添加到系统的 PATH 环境变量中。
+# 假设安装包路径为 /Users/xxx/.local/bin（见安装执行输出）
+### 临时生效（当前会话），在当前终端中执行以下命令：
+export PATH="/Users/xxx/.local/bin:$PATH"
+### 永久生效（推荐），在当前终端中执行以下命令：
+echo 'export PATH="/Users/xxx/.local/bin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
+
+
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+具体安装方式参考 [uv 安装](https://docs.astral.sh/uv/getting-started/installation/#pypi)
 
 ## 在 Cline 中使用：
 
