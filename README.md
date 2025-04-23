@@ -8,8 +8,8 @@ The Model Context Protocol (MCP) Server built on Sufy products allows users to a
 
 ## Environment Requirements
 
-• Python 3.12 or higher
-• uv package manager
+- Python 3.12 or higher
+- uv package manager
 
 If you haven't installed uv yet, you can install it with the following command:
 
