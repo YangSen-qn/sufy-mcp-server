@@ -13,6 +13,7 @@ Server 来访问 Sufy 服务。
 - uv 包管理器
 
 如果还没有安装 uv，可以使用以下命令安装：
+
 ```bash
 # Mac，推荐使用 brew 安装
 brew install uv

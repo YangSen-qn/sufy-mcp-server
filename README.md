@@ -13,9 +13,30 @@ The Model Context Protocol (MCP) Server built on Sufy products allows users to a
 
 If you haven't installed uv yet, you can install it with the following command:
 
+Here's the English translation of the provided text:
+
 ```bash
+# Mac, recommended to install using brew
+brew install uv
+
+
+# Linux & Mac
+# 1. Installation
 curl -LsSf https://astral.sh/uv/install.sh | sh
+# 2. After installation, make sure to add the package installation directory (the directory containing uv and uvx executables) to your system's PATH environment variable.
+# Assuming the installation path is /Users/xxx/.local/bin (see installation output)
+### Temporary effect (current session), execute the following command in your current terminal:
+export PATH="/Users/xxx/.local/bin:$PATH"
+### Permanent effect (recommended), execute the following command in your current terminal:
+echo 'export PATH="/Users/xxx/.local/bin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
+
+
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+For specific installation methods, refer to [uv installation](https://docs.astral.sh/uv/getting-started/installation/#pypi).
 
 ## Usage in Cline
 
